@@ -70,4 +70,33 @@ router.get("/getAllUsers", authMiddleware, async (req, res) => {
   res.json(users);
 });
 
+//-----
+router.post("/Validate", async (req, res) => {
+  try {
+    const  userOtp  = req.body.otp;
+    const otp = '193201'
+    console.log(userOtp)
+    if (userOtp.length < 6) {
+      return res.status(200).json({
+        message: "otp too small",
+      });
+    }
+
+    if (otp !== userOtp) {
+      return res.status(200).json({
+        message: "invalid otp",
+      });
+    }
+
+    if (otp == Number(userOtp)) {
+      return res.status(200).json({
+        message: "valid otp",
+      });
+    }
+  } catch (e) {
+    console.log(e)
+  }
+
+
+});
 module.exports = router;
